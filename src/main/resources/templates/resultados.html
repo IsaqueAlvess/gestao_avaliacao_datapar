@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Perfil do Usuário</title>
 </head>
 <body class="bg-gray-900">
@@ -43,7 +44,52 @@
                     <td class="px-6 py-4 whitespace-nowrap" th:text="${avaliacao.contato}"></td>
                 </tr>
             </tbody>
+            
         </table>
+        <canvas id="myChart" width="350 " height="350" style="align-items: right;"></canvas>
     </div>
+
+    <script th:inline="javascript">
+        // Obtém os dados das médias das pontuações passadas pelo controlador
+        /*<![CDATA[*/
+        var averages = /*[[${averages}]]*/ [];
+        /*]]>*/
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+        labels: ['Nota 1', 'Nota 2', 'Nota 3', 'Nota 4', 'Nota 5'],
+        datasets: [{
+            label: 'Pontuações',
+            data: [20, 30, 25, 15, 10], 
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.5)', 
+                'rgba(54, 162, 235, 0.5)', 
+                'rgba(255, 206, 86, 0.5)', 
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)', 
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                display: false
+            }
+        }
+    }
+});
+    </script>
+
 </body>
 </html>

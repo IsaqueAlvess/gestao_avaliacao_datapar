@@ -74,10 +74,25 @@ public class AvaliacaoController {
     @Operation(summary = "Listar avaliações")
     @GetMapping("/resultados")
     public ModelAndView listarAvaliacoes() {
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("resultados");
         List<Avaliacao> listaDeAvaliacoes = avaliacaoService.getAllAvaliacoes();
         modelAndView.addObject("listaDeAvaliacoes", listaDeAvaliacoes);
-        modelAndView.setViewName("resultados");
+
+        // Calcula a média das pontuações
+        double[] averages = new double[6]; // Índice 0 não é usado
+        int[] counts = new int[6]; // Conta o número de avaliações para cada pontuação
+        for (Avaliacao avaliacao : listaDeAvaliacoes) {
+            int pontuacao = avaliacao.getPontuacao();
+            averages[pontuacao] += pontuacao;
+            counts[pontuacao]++;
+        }
+        for (int i = 1; i <= 5; i++) {
+            if (counts[i] != 0) {
+                averages[i] /= counts[i];
+            }
+        }
+        modelAndView.addObject("averages", averages);
+
         return modelAndView;
     }
 
