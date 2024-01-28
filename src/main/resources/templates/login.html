@@ -14,10 +14,10 @@
         <div class="space-y-8 bg-zinc-950 rounded-md p-20">
             <input type="text" name="email" 
                 class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:ring-green-600 focus:ring-2" 
-                placeholder="Email">
+                placeholder="Email" required>
             <input type="password" name="senha"
                 class="bg-gray-50 text-gray-900 text-xd rounded w-96 block p-3 focus:ring-green-600 focus:ring-2" 
-                placeholder="Senha">
+                placeholder="Senha" required>
 
             <p class="text-red-400" th:if="${error_message}" th:text="${error_message}"></p>
 
